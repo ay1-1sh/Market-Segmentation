@@ -7,6 +7,26 @@ from io import BytesIO
 import base64
 import os
 
+from datetime import datetime
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
+from reportlab.lib import colors
+from reportlab.pdfgen import canvas
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, Image
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
+from reportlab.pdfgen import canvas
+from reportlab.lib import colors
+from datetime import datetime
+from datetime import datetime
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
+from reportlab.lib import colors
+from reportlab.pdfgen import canvas
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, Image
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+
 
 app = Flask(__name__)
 
@@ -23,16 +43,7 @@ def wifi_tunneling():
     return render_template('wifi_tunneling.html')
 
 
-# Route for displaying the dataset
-@app.route('/data-show')
-def data_show():
-    # Load dataset from file or database
-    dataset = pd.read_csv('datasets/segmentation data.csv')
-    # Get feature names
-    feature_names = dataset.columns.tolist()
-    # Convert dataset to HTML table
-    table_html = dataset.to_html(index=False)
-    return render_template('data_show.html', table_html=table_html, feature_names=feature_names)
+
 
 
 # Route for generating and displaying clustering results
@@ -43,8 +54,33 @@ def generate_clusters():
         num_clusters = int(request.form['num_clusters'])
         algo_type = request.form['algo_type']
 
-        # Load dataset from file or database
-        dataset = pd.read_csv('datasets/segmentation data.csv')
+        print("--GOT ALGO--")
+        dataset_selection = request.form['dataset']
+        print("--GOT DATASET--")
+
+        # Determine dataset selection and load dataset
+        if dataset_selection == 'dataset1':
+            dataset = pd.read_csv('datasets/Sales Transaction.csv')
+        elif dataset_selection == 'dataset2':
+            dataset = pd.read_csv('datasets/Personal Info.csv')
+        elif dataset_selection == 'dataset3':
+            dataset = pd.read_csv('datasets/Customer Demographics.csv')
+        elif dataset_selection == 'dataset4':
+            dataset = pd.read_csv('datasets/Wine Quality.csv')
+        elif dataset_selection == 'dataset5':
+            dataset = pd.read_csv('datasets/online retail.csv')
+        elif dataset_selection == 'dataset6':
+            dataset = pd.read_csv('datasets/geolocation.csv')
+        elif dataset_selection == 'dataset7':
+            dataset = pd.read_csv('datasets/Product Sales.csv')
+        elif dataset_selection == 'dataset8':
+            dataset = pd.read_csv('datasets/Sports Performance.csv')
+        elif dataset_selection == 'dataset9':
+            dataset = pd.read_csv('datasets/Customer-Segmentation.csv')
+        elif dataset_selection == 'dataset10':
+            dataset = pd.read_csv('dataset7.csv')
+        else :
+            return render_template('error.html')
 
         # Identify and remove non-numeric columns
         non_numeric_columns = []
@@ -93,11 +129,6 @@ def generate_clusters():
                     plot_path = os.path.join(plot_dir, plot_file)
                     plt.savefig(plot_path, format='png')
                     plt.close(fig)
-                    # Encode plot image to base64 for embedding in HTML
-                    image_names.append(plot_file)
-
-
-
             # Return results HTML
             return render_template('result.html', image_names=image_names, feature_names=feature_names,feature_names_a=feature_names_a  ,table_html=table_html)
 
@@ -112,7 +143,6 @@ def generate_clusters():
         else:
             return render_template('error.html')
     return render_template('error.html')
-
 
 
 

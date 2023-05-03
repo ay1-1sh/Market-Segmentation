@@ -1,37 +1,138 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>My App</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Include Bootstrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<!-- Include jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<!-- Include Bootstrap JS -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>My App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body {
+        background-color: #282828;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .btn-primary {
+        background-color: #8b00ff;
+        border-color: #8b00ff;
+        color: #fff;
+        margin-top: 20px;
+        margin-right: 20px;
+        float: right;
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #fff;
+        border-color: #8b00ff;
+        color: #8b00ff;
+    }
+
+    #datasets-container {
+        float: left;
+        width: 50%;
+    }
+
+    .dataset-table {
+        margin-top: 20px;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .dataset-table th,
+    .dataset-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #fff;
+    }
+
+    #wifi-tunnel-btn {
+        float: left;
+        margin-top: 20px;
+    }
+</style>
+
 </head>
 <body>
+
 	<div class="container mt-5">
 		<!-- Wifi tunnel section -->
 		<div class="row mb-5">
 			<div class="col-md-4">
-				<button class="btn btn-primary" onclick="wifiTunnel()">Wifi Tunnel</button>
+				<a href="{{ url_for('wifi_tunneling') }}" class="btn btn-primary">Wifi Tunnel</a>
 			</div>
 		</div>
-		<!-- View data section -->
+        <div class="container mt-5">
+		<!-- Dataset selection section -->
+         <form method="POST" action="{{ url_for('generate_clusters') }}">
 		<div class="row mb-5">
 			<div class="col-md-4">
-				<a href="{{ url_for('data_show') }}" class="btn btn-primary">View Data</a>
-			</div>
-		</div>
+				<h4>Select a Dataset:</h4>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Dataset Name</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="radio" name="dataset" value="dataset1" id="dataset1"></td>
+							<td>SalesTransaction: Contains information about sales transactions such as product ID, weight, fat content, product visibility, type, MRP, and sales outlet..</td>
+						</tr>
+						<tr>
+							<td><input type="radio" name="dataset" value="dataset2" id="dataset2"></td>
+							<td>PersonalInfo: Contains personal information such as first name, last name, title, gender, email, address, job details, and IP address.</td>
+						</tr>
+						<tr>
+							<td><input type="radio" name="dataset" value="dataset3" id="dataset3"></td>
+							<td>CustomerDemographics: Contains demographic information about customers such as age, education, income, occupation, and settlement size.</td>
+						</tr>
+						<tr>
+							<td><input type="radio" name="dataset" value="dataset4" id="dataset4"></td>
+							<td>WineQuality: Contains chemical composition and sensory data for wines, with a customer segmentation variable.</td>
+						</tr>
+						<tr>
+							<td><input type="radio" name="dataset" value="dataset5" id="dataset5"></td>
+							<td>OnlineRetail: Contains information about online retail transactions such as invoice number, product code, description, quantity, price, and country.</td>
+						</tr>
+						<tr>
+							<td><input type="radio" name="dataset" value="dataset6" id="dataset6"></td>
+							<td>GeoLocation: Contains information about geographic locations such as latitude, longitude, country, and time zone.</td>
+						</tr>
+						<tr>
+							<td><input type="radio" name="dataset" value="dataset7" id="dataset7"></td>
+							<td>ProductSales: Contains information about product sales such as product ID, weight, fat content, product visibility, type, MRP, and sales outlet.</td>
+						</tr>
+                        <tr>
+							<td><input type="radio" name="dataset" value="dataset8" id="dataset8"></td>
+							<td>SportsPerformance: Contains information about sports performance such as name, age, gender, device used, network type, and sports played.</td>
+						</tr>
+                        <tr>
+							<td><input type="radio" name="dataset" value="dataset9" id="dataset9"></td>
+							<td>CustomerSegmentation: Contains demographic and behavioral data about customers, used for segmentation and targeting.</td>
+						</tr>
+                        <tr>
+							<td><input type="radio" name="dataset" value="dataset10" id="dataset10"></td>
+							<td>MarketBasketAnalysis: Contains information about items purchased together in a transaction, used for market basket analysis.</td>
+						</tr>
+
+                    </tbody>
+                </table>
+            </div>
 		<!-- Clustering section -->
 		<div class="row">
 			<div class="container mt-5">
 		<!-- Clustering section -->
 		<div class="row">
 			<div class="col-md-4">
-				<form method="POST" action="{{ url_for('generate_clusters') }}">
+
 					<div class="form-group">
 						<label for="algoSelect">Select Algorithm:</label>
 						<select class="form-control" id="algoSelect" name="algo_type">
@@ -49,19 +150,18 @@
 						</select>
 					</div>
 					<button type="submit" class="btn btn-primary">Generate</button>
-				</form>
+
 			</div>
 		</div>
-            </div>
-        </div>
-	</div>
-	<script>
-		// Function to handle wifi tunnel button click
-		function wifiTunnel() {
-			// TODO: Add code to perform wifi tunneling and collect form input
-			alert('Performing wifi tunneling and collecting form input...');
-		}
 
+            </div>
+
+        </div>
+	</div></form>
+        </div>
+    </div>
+
+	<script>
 		// Function to handle clustering generation button click
 		function generate() {
     var algo = $('#algoSelect').val();
