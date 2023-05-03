@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wifi Tunneling</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <style>
+      .container {
+        margin-top: 50px;
+      }
+      .row {
+        display: flex;
+        justify-content: center;
+      }
+      .col {
+        text-align: center;
+      }
+      .qrcode {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="qrcode">
+            <img src="{{ url_for('static', filename='qr/wifi.png') }}" alt="wifi qr code">
+          </div>
+          <p>Scan QR code to connect to wifi</p>
+        </div>
+        <div class="col">
+          <p>Scan QR code to visit website</p>
+          <div class="qrcode">
+            <img src="{{ url_for('static', filename='qr/link.png') }}" alt="link qr code">
+          </div>
+        </div>
+        <div class="col">
+          <h3>Fill out the form below</h3>
+          <form method="POST" action="{{ url_for('wifi_tunneling') }}">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

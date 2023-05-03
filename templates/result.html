@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Results</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Add Bootstrap CSS file -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+	<!-- Add custom CSS file -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+</head>
+<body>
+
+<!-- Display the feature names -->
+<div class="container my-5">
+	<h2>Feature Names:</h2>
+	<ul>
+		{% for name in feature_names %}
+		<li>{{ name }}</li>
+		{% endfor %}
+	</ul>
+</div>
+
+<!-- Display the plots using Bootstrap carousel -->
+<div class="container my-5">
+	<h2>Cluster Plots:</h2>
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<ol class="carousel-indicators">
+    {% for i in range(image_names|count) %}
+    <li data-target="#myCarousel" data-slide-to="{{ i }}" {% if i == 0 %}class="active"{% endif %}></li>
+    {% endfor %}
+</ol>
+		<div class="carousel-inner">
+    {% for name in image_names %}
+        <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <img src="{{ url_for('static', filename='plots/'+name) }}" alt="Cluster Plot">
+        </div>
+    {% endfor %}
+</div>
+		<a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
+</div>
+
+<div class="container my-5">
+	<h2>Dataset:</h2>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					{% for name in feature_names_a %}
+					<th>{{ name }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{{ table_html|safe }}
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- Add Bootstrap JS file for carousel functionality -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>

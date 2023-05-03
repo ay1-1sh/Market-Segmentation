@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dataset</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Add Bootstrap CSS file -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- Display the dataset as an HTML table -->
+<div class="container my-5">
+	<h2>Dataset:</h2>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					{% for name in feature_names %}
+					<th>{{ name }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{{ table_html|safe }}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- Add Bootstrap JS file for table functionality -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
