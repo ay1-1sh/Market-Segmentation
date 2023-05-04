@@ -3,29 +3,7 @@ import pandas as pd
 import numpy as np
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
-from io import BytesIO
-import base64
 import os
-
-from datetime import datetime
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import cm
-from reportlab.lib import colors
-from reportlab.pdfgen import canvas
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, Image
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import cm
-from reportlab.pdfgen import canvas
-from reportlab.lib import colors
-from datetime import datetime
-from datetime import datetime
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import cm
-from reportlab.lib import colors
-from reportlab.pdfgen import canvas
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, Image
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
 
 app = Flask(__name__)
@@ -41,9 +19,6 @@ def index():
 @app.route('/wifi-tunneling', methods=['GET', 'POST'])
 def wifi_tunneling():
     return render_template('wifi_tunneling.html')
-
-
-
 
 
 # Route for generating and displaying clustering results
