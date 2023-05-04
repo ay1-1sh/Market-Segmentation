@@ -88,7 +88,9 @@ def generate_clusters():
             feature_names.remove('cluster')
             # Generate scatter plot
             plots = []
-            plot_dir = 'static/plots/'
+            # Generate scatter plot
+            plots = []
+            plot_dir = os.path.join('static', 'plots')
             if not os.path.exists(plot_dir):
                 os.makedirs(plot_dir)
 
