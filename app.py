@@ -104,6 +104,8 @@ def generate_clusters():
                     plot_path = os.path.join(plot_dir, plot_file)
                     plt.savefig(plot_path, format='png')
                     plt.close(fig)
+                    image_names.append(plot_file)
+
             # Return results HTM
             return render_template('result.html', image_names=image_names, feature_names=feature_names,feature_names_a=feature_names_a  ,table_html=table_html)
 
