@@ -7,7 +7,94 @@
 	<!-- Add Bootstrap CSS file -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
 	<!-- Add custom CSS file -->
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+	<style>
+/* Style the feature names section */
+ul {
+list-style: none;
+padding-left: 0;
+font-size: 20px;
+}
+
+/* Style the carousel section */
+.carousel-item img {
+display: block;
+margin-left: auto;
+margin-right: auto;
+max-width: 100%;
+height: auto;
+}
+
+/* Style the table section */
+table {
+border-collapse: collapse;
+width: 100%;
+}
+
+th, td {
+border: 1px solid #ddd;
+padding: 8px;
+text-align: center;
+}
+
+th {
+background-color: #af7ac5; /* Bland violet */
+color: white;
+font-weight: bold;
+}
+
+tr:nth-child(even) {
+background-color: #f7f7f7; /* White shade */
+}
+
+/* Style the page headings */
+h2 {
+text-align: center;
+margin-bottom: 50px;
+}
+
+/* Style the container boxes /
+.container {
+background-color: #fff; / White shade */
+border-radius: 10px;
+padding: 20px;
+margin-bottom: 30px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the split boxes */
+.split {
+display: flex;
+flex-wrap: wrap;
+}
+
+.box {
+flex: 1;
+padding: 20px;
+border-radius: 10px;
+margin: 10px;
+text-align: center;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.box:nth-child(odd) {
+background-color: #d3ead3; /* Light green */
+}
+
+.box:nth-child(even) {
+background-color: #c8e6ff; /* Light blue */
+}
+
+/* Media queries for mobile devices */
+@media screen and (max-width: 768px) {
+.split {
+display: block;
+}
+.box {
+margin: 10px auto;
+max-width: 300px;
+}
+}
+    </style>
 </head>
 <body>
 

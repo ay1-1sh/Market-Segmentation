@@ -9,8 +9,12 @@ import os
 app = Flask(__name__)
 
 
-# Route for the home page
 @app.route('/')
+def start():
+    return render_template('start.html')
+
+
+@app.route('/index')
 def index():
     return render_template('index.html')
 
@@ -19,6 +23,10 @@ def index():
 @app.route('/wifi-tunneling', methods=['GET', 'POST'])
 def wifi_tunneling():
     return render_template('wifi_tunneling.html')
+
+@app.route('/readme', methods=['GET', 'POST'])
+def readme():
+    return render_template('readme.html')
 
 
 # Route for generating and displaying clustering results
@@ -114,11 +122,11 @@ def generate_clusters():
         elif algo_type == 'hierarchical':
             # Implement hierarchical clustering algorithm
             # ...
-            return render_template('error.html')
+            return render_template('under_constr.html')
         elif algo_type == 'DBSCAN':
             # Implement DBSCAN clustering algorithm
             # ...
-            return render_template('error.html')
+            return render_template('under_constr.html')
         else:
             return render_template('error.html')
     return render_template('error.html')
