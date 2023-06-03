@@ -73,11 +73,25 @@
             margin-bottom: 15px;
         }
 
+        .text-box {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            font-weight: bold;
+        }
+
         @media (max-width: 767px) {
             .container {
                 margin-top: 150px;
             }
         }
+.box {
+    background-color: rgba(150, 153, 220, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
     </style>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
@@ -99,7 +113,8 @@
         <!-- Dataset selection section -->
         <div class="row mb-5">
             <div class="col-md-4 dataset-table">
-                <h4>Select a Dataset:</h4>
+                <div class="box"><h4>Select a Dataset:</h4></div>
+
                 <table class="table">
                     <thead>
                         <tr>
@@ -111,47 +126,47 @@
                         <!-- Existing dataset options -->
                         <tr>
                             <td><input type="radio" name="dataset" value="dataset1" id="dataset1"></td>
-                            <td>Sales Transaction: Contains information about sales transactions such as product ID, weight, fat content, product visibility, type, MRP, and sales outlet.</td>
+                            <td><div class="text-box">Sales Transaction:</div> Contains information about sales transactions such as product ID, weight, fat content, product visibility, type, MRP, and sales outlet.</td>
                         </tr>
                         <tr>
                             <td><input type="radio" name="dataset" value="dataset2" id="dataset2"></td>
-                            <td>PersonalInfo: Contains personal information such as first name, last name, title, gender, email, address, job details, and IP address.</td>
+                            <td><div class="text-box">PersonalInfo:</div> Contains personal information such as first name, last name, title, gender, email, address, job details, and IP address.</td>
                         </tr>
                         <tr>
                             <td><input type="radio" name="dataset" value="dataset3" id="dataset3"></td>
-                            <td>CustomerDemographics: Contains demographic information about customers such as age, education, income, occupation, and settlement size.</td>
+                            <td><div class="text-box">CustomerDemographics:</div> Contains demographic information about customers such as age, education, income, occupation, and settlement size.</td>
                         </tr>
                         <tr>
                             <td><input type="radio" name="dataset" value="dataset4" id="dataset4"></td>
-                            <td>WineQuality: Contains chemical composition and sensory data for wines, with a customer segmentation variable.</td>
+                            <td><div class="text-box">WineQuality:</div> Contains chemical composition and sensory data for wines, with a customer segmentation variable.</td>
                         </tr>
-                        <tr>
-                            <td><input type="radio" name="dataset" value="dataset5" id="dataset5"></td>
-                            <td>OnlineRetail: Contains information about online retail transactions such as invoice number, product code, description, quantity, price, and country.</td>
+                        <tr style="display: none;">
+                            <td><input type="radio" name="dataset" value="dataset5" id="dataset5" style="display:none"></td>
+                            <td><div class="text-box">OnlineRetail:</div> Contains information about online retail transactions such as invoice number, product code, description, quantity, price, and country.</td>
                         </tr>
                         <tr>
                             <td><input type="radio" name="dataset" value="dataset6" id="dataset6"></td>
-                            <td>GeoLocation: Contains information about geographic locations such as latitude, longitude, country, and time zone.</td>
+                            <td><div class="text-box">GeoLocation:</div> Contains information about geographic locations such as latitude, longitude, country, and time zone.</td>
                         </tr>
                         <tr style="display: none;">
                             <td><input type="radio" name="dataset" value="dataset7" id="dataset7" style="display:none"></td>
-                            <td>ProductSales: Contains information about product sales such as product ID, weight, fat content, product visibility, type, MRP, and sales outlet.</td>
+                            <td><div class="text-box">ProductSales:</div> Contains information about product sales such as product ID, weight, fat content, product visibility, type, MRP, and sales outlet.</td>
                         </tr>
                         <tr style="display: none;">
                             <td><input type="radio" name="dataset" value="dataset8" id="dataset8" style="display:none"></td>
-                            <td>SportsPerformance: Contains information about sports performance such as name, age, gender, device used, network type, and sports played.</td>
+                            <td><div class="text-box">SportsPerformance:</div> Contains information about sports performance such as name, age, gender, device used, network type, and sports played.</td>
                         </tr>
                         <tr style="display: none;">
                             <td><input type="radio" name="dataset" value="dataset9" id="dataset9" style="display:none"></td>
-                            <td>CustomerSegmentation: Contains demographic and behavioral data about customers, used for segmentation and targeting.</td>
+                            <td><div class="text-box">CustomerSegmentation:</div> Contains demographic and behavioral data about customers, used for segmentation and targeting.</td>
                         </tr>
                         <tr style="display: none;">
                             <td><input type="radio" name="dataset" value="dataset10" id="dataset10" style="display:none"></td>
-                            <td>MarketBasketAnalysis: Contains information about items purchased together in a transaction, used for market basket analysis.</td>
+                            <td><div class="text-box">MarketBasketAnalysis:</div> Contains information about items purchased together in a transaction, used for market basket analysis.</td>
                         </tr>
                         <tr>
                             <td><input type="radio" name="dataset" value="custom" id="custom"></td>
-                            <td>Custom Dataset:</td>
+                            <td><div class="text-box">Custom Dataset:</div></td>
                         </tr>
                         <!-- Custom dataset file input -->
                         <tr id="custom-dataset-row" style="display: none;">
@@ -164,7 +179,8 @@
             <!-- Clustering section -->
             <div class="col-md-4 clustering-section">
                 <div class="form-group">
-                    <label for="algoSelect">Select Algorithm:</label>
+                    <div class="box"><label for="algoSelect">Select Algorithm:</label></div>
+
                     <select class="form-control" id="algoSelect" name="algo_type">
                         <option value="k-means">K-Means Clustering</option>
                         <option value="hierarchical">Hierarchical Clustering</option>
@@ -172,7 +188,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="clusterSelect">Select Number of Clusters:</label>
+                    <div class="box"><label for="clusterSelect">Select Number of Clusters:</label></div>
+
                     <select class="form-control" id="clusterSelect" name="num_clusters">
                         <option value="2">2</option>
                         <option value="3">3</option>
