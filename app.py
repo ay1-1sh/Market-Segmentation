@@ -1,3 +1,5 @@
+import shutil
+
 from flask import Flask, render_template, request
 import pandas as pd
 import numpy as np
@@ -20,10 +22,20 @@ app = Flask(__name__)
 @app.route('/')
 def start():
     return render_template('start.html')
-
+@app.route('/start')
+def star1():
+    return render_template('start.html')
 
 @app.route('/index')
 def index():
+    # Remove all files from the static/plots folder
+    folder_path = 'static/plots'
+    for filename in os.listdir(folder_path):
+        file_path = os.path.join(folder_path, filename)
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+        elif os.path.isdir(file_path):
+            shutil.rmtree(file_path)
     return render_template('form-cs.html')
 
 

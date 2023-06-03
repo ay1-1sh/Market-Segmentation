@@ -96,6 +96,13 @@
     font-weight: bold;
 }
 
+.transparent-bg {
+  background-color: rgba(255, 255, 255, 0.2); /* Adjust the last value (0.2) for the desired transparency (0 to 1) */
+}
+
+.transparent-bg .navbar-collapse {
+  background-color: rgba(255, 255, 255, 0.2); /* Adjust the last value (0.2) for the desired transparency (0 to 1) */
+}
 
 
     </style>
@@ -108,34 +115,35 @@
         </video>
     </div>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="start.html">Home</a>
+<nav class="navbar navbar-expand-lg navbar-light transparent-bg">
+  <a class="navbar-brand" href="/start">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="start.html">Home</a>
+        <a class="nav-link" href="/start">Home</a>
       </li>
-        <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link" href="under_constr.html">About</a>
       </li>
-        <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link" href="under_constr.html">Report</a>
       </li>
-        <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link" href="under_constr.html">Team Details</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="readme.html">Readme.md</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="under_constr.html">Contact Dev</a>
+        <a class="nav-link" href="https://projectai.me">Contact Dev</a>
       </li>
     </ul>
   </div>
 </nav>
+
 
 
     <div class="container">
@@ -160,6 +168,15 @@
                     </thead>
                     <tbody>
                         <!-- Existing dataset options -->
+                        <tr>
+                            <td><input type="radio" name="dataset" value="custom" id="custom"></td>
+                            <td><div class="text-box">Custom Dataset:</div></td>
+                        </tr>
+                        <!-- Custom dataset file input -->
+                        <tr id="custom-dataset-row" style="display: none;">
+                            <td><label for="custom-dataset">Upload Dataset File:</label></td>
+                            <td><input type="file" name="custom_dataset" id="custom-dataset"></td>
+                        </tr>
                         <tr>
                             <td><input type="radio" name="dataset" value="dataset1" id="dataset1"></td>
                             <td><div class="text-box">Sales Transaction:</div> Contains information about sales transactions such as product ID, weight, fat content, product visibility, type, MRP, and sales outlet.</td>
@@ -200,15 +217,7 @@
                             <td><input type="radio" name="dataset" value="dataset10" id="dataset10" style="display:none"></td>
                             <td><div class="text-box">MarketBasketAnalysis:</div> Contains information about items purchased together in a transaction, used for market basket analysis.</td>
                         </tr>
-                        <tr>
-                            <td><input type="radio" name="dataset" value="custom" id="custom"></td>
-                            <td><div class="text-box">Custom Dataset:</div></td>
-                        </tr>
-                        <!-- Custom dataset file input -->
-                        <tr id="custom-dataset-row" style="display: none;">
-                            <td><label for="custom-dataset">Upload Dataset File:</label></td>
-                            <td><input type="file" name="custom_dataset" id="custom-dataset"></td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -239,31 +248,35 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('input[name="dataset"]').change(function() {
-                if ($(this).val() === 'custom') {
-                    $('#custom-dataset-row').show();
-                } else {
-                    $('#custom-dataset-row').hide();
-                }
-            });
-
-            $('form').submit(function(e) {
-                var dataset = $('input[name="dataset"]:checked').val();
-                if (dataset === 'custom') {
-                    var fileInput = $('#custom-dataset')[0];
-                    var file = fileInput.files[0];
-                    if (file) {
-                        // Submit the form without AJAX
-                        return true;
-                    } else {
-                        alert('Please select a file.');
-                        return false;  // Prevent form submission
-                    }
-                }
-            });
+<script>
+    $(document).ready(function() {
+        $('input[name="dataset"]').change(function() {
+            if ($(this).val() === 'custom') {
+                $('#custom-dataset-row').show();
+            } else {
+                $('#custom-dataset-row').hide();
+            }
         });
-    </script>
+
+        $('form').submit(function(e) {
+            var dataset = $('input[name="dataset"]:checked').val();
+            if (dataset === 'custom') {
+                var fileInput = $('#custom-dataset')[0];
+                var file = fileInput.files[0];
+                if (file) {
+                    // Submit the form without AJAX
+                    return true;
+                } else {
+                    alert('Please select a file or upload one to continue.');
+                    e.preventDefault();  // Prevent form submission
+                }
+            } else if (!dataset) {
+                alert('Please select a dataset to continue.');
+                e.preventDefault();  // Prevent form submission
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
