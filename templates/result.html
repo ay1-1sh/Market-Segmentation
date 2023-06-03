@@ -259,24 +259,36 @@ body {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
     <script>
-        // Get references to the video and loading animation
-        const video = document.querySelector('.video-background video');
-        const loadingAnimation = document.querySelector('#loading-animation');
-        const container = document.querySelector('.container');
+    // Get references to the video and loading animation
+    const video = document.querySelector('.video-background video');
+    const loadingAnimation = document.querySelector('#loading-animation');
+    const container = document.querySelector('.container');
 
-        // Function to hide the loading animation and show the content
-        function hideLoadingAnimation() {
-            // Hide the loading animation
-            loadingAnimation.classList.add('hidden');
-            // Enable container and its children
-            container.style.pointerEvents = 'auto';
-        }
+    // Function to remove the loading animation from the DOM
+    function removeLoadingAnimation() {
+        // Remove the loading animation element from the DOM
+        loadingAnimation.parentNode.removeChild(loadingAnimation);
+        // Enable container and its children
+        container.style.pointerEvents = 'auto';
+    }
 
-        // Add event listener to detect when the video is ready to play
-        video.addEventListener('canplay', () => {
-            // Hide the loading animation and show the content
-            hideLoadingAnimation();
-        });
+    // Add event listeners to detect when the video is loaded and playing
+    video.addEventListener('loadeddata', () => {
+        // Show the loading animation
+        loadingAnimation.classList.remove('hidden');
+        // Disable container and its children
+        container.style.pointerEvents = 'none';
+    });
+
+    video.addEventListener('playing', () => {
+        // Remove the loading animation from the DOM
+        removeLoadingAnimation();
+    });
+
+    // Check if the video is already loaded (in case it loads before the script runs)
+    if (video.readyState >= 4) {
+        removeLoadingAnimation();
+    }
     </script>
 </body>
 </html>
