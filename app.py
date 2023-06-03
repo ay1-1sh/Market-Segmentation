@@ -4,7 +4,9 @@ import numpy as np
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import os
-
+import os
+from flask import current_app
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -16,7 +18,7 @@ def start():
 
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    return render_template('form-cs.html')
 
 
 # Route for collecting form data via wifi tunneling
@@ -27,6 +29,13 @@ def wifi_tunneling():
 @app.route('/readme', methods=['GET', 'POST'])
 def readme():
     return render_template('readme.html')
+
+
+ALLOWED_EXTENSIONS = {'csv', 'txt', 'xlsx'}
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 # Route for generating and displaying clustering results
@@ -40,6 +49,16 @@ def generate_clusters():
         print("--GOT ALGO--")
         dataset_selection = request.form['dataset']
         print("--GOT DATASET--")
+
+        if request.form['dataset'] == 'custom':
+            file = request.files['custom_dataset']
+            if file and allowed_file(file.filename):
+                # Save the custom dataset file to the "datasets" folder
+                if file:
+                    filename = 'custom.csv'  # Set the desired filename
+                    file_path = os.path.join('datasets', filename)
+                    file.save(file_path)  # Save the file
+                    # Perform clustering on the custom dataset
 
         # Determine dataset selection and load dataset
         if dataset_selection == 'dataset1':
@@ -61,7 +80,10 @@ def generate_clusters():
         elif dataset_selection == 'dataset9':
             dataset = pd.read_csv('datasets/Customer-Segmentation.csv')
         elif dataset_selection == 'dataset10':
-            dataset = pd.read_csv('dataset7.csv')
+            dataset = pd.read_csv('datasets/dataset7.csv')
+        elif dataset_selection == 'custom':
+            print("CUSTOM - ENTER")
+            dataset = pd.read_csv('datasets/custom.csv')
         else :
             return render_template('error.html')
 
@@ -87,6 +109,7 @@ def generate_clusters():
 
         # Run clustering algorithm
         if algo_type == 'k-means':
+            print("KMEANS = ENTER")
             kmeans = KMeans(n_clusters=num_clusters)
             kmeans.fit(dataset)
             dataset['cluster'] = kmeans.labels_
@@ -116,6 +139,7 @@ def generate_clusters():
                     plt.close(fig)
                     image_names.append(plot_file)
 
+            print("EXIT - KMEANS")
             # Return results HTM
             return render_template('result.html', image_names=image_names, feature_names=feature_names,feature_names_a=feature_names_a  ,table_html=table_html)
 
