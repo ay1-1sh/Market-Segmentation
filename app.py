@@ -5,8 +5,14 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import os
 import os
-from flask import current_app
-from werkzeug.utils import secure_filename
+from flask import send_file, render_template
+from reportlab.lib.pagesizes import portrait, A4
+from reportlab.pdfgen import canvas
+import os
+from flask import send_file
+from reportlab.lib.pagesizes import portrait, A4
+from reportlab.lib.units import inch
+from reportlab.pdfgen import canvas
 
 app = Flask(__name__)
 
@@ -155,6 +161,71 @@ def generate_clusters():
             return render_template('error.html')
     return render_template('error.html')
 
+
+
+@app.route('/download-pdf')
+def download_pdf():
+    image_folder = 'static/plots'
+    pdf_path = 'static/pdf/special_project_report.pdf'
+
+    # Get all the image files in the folder
+    image_files = [filename for filename in os.listdir(image_folder) if filename.endswith(('.png', '.jpg', '.jpeg'))]
+
+    # Calculate the number of pages needed
+    images_per_page = 2
+    total_pages = (len(image_files) + images_per_page - 1) // images_per_page
+
+    # Create a new PDF canvas
+    pdf_canvas = canvas.Canvas(pdf_path, pagesize=portrait(A4), bottomup=True)
+
+    # Set margins
+    left_margin = 0.75 * inch
+    right_margin = A4[0] - 0.75 * inch
+    top_margin = A4[1] - 0.75 * inch
+    bottom_margin = 0.75 * inch
+
+    # Set background color
+    pdf_canvas.setFillColorRGB(0.9, 0.9, 0.9)
+
+    # Add introduction page
+    intro_image_path = 'static/intro.png'
+    pdf_canvas.drawImage(intro_image_path, x=0, y=0, width=A4[0], height=A4[1])
+
+    # Iterate through the image files and add them to the PDF
+    page_count = 0
+    for i, image_file in enumerate(image_files):
+        # Add a new page if necessary
+        if i % images_per_page == 0:
+            pdf_canvas.showPage()
+            page_count += 1
+
+            # Add header
+            header_text = f"Page {page_count}/{total_pages}"
+            pdf_canvas.setFont('Helvetica', 12)
+            pdf_canvas.drawCentredString(A4[0] / 2, top_margin - inch, header_text)
+
+        # Calculate the position for the current image
+        x = left_margin
+        y = top_margin - (i % images_per_page) * (A4[1] / 2) - 4.8 * inch
+
+        # Add the image to the current page
+        image_path = os.path.join(image_folder, image_file)
+        pdf_canvas.drawImage(image_path, x=x, y=y, width=6.4 * inch, height=4.8 * inch)
+
+        # Add the image name below the image
+        pdf_canvas.setFont('Helvetica', 10)
+        pdf_canvas.drawRightString(x + 6.3 * inch, y - 0.2 * inch, image_file)
+
+    # Add ending page
+    ending_image_path = 'static/end.png'
+    pdf_canvas.showPage()
+    pdf_canvas.drawImage(ending_image_path, x=0, y=0, width=A4[0], height=A4[1])
+
+    # Save the PDF file
+    pdf_canvas.save()
+
+    # Send the generated PDF file as an attachment
+    return send_file(pdf_path, as_attachment=True)
 
 
 if __name__ == '__main__':
