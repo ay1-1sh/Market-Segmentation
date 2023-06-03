@@ -184,6 +184,43 @@
             margin-right: 10px;
         }
 
+        .loading-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-animation.hidden {
+            opacity: 0;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #fff;
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
         @media (max-width: 400px) {
             .container {
                 width: 65%;
@@ -214,11 +251,16 @@
 </head>
 <body>
     <div class="video-background">
-        <video class="video" src="static/result-space.mp4" autoplay loop muted></video>
+        <video class="video" src="static/result-space.mp4" autoplay loop muted oncanplay="hideLoadingAnimation()"></video>
     </div>
+
+    <div class="loading-animation" id="loading-animation">
+        <div class="loading-spinner"></div>
+    </div>
+
     <div class="container">
         <h1>Welcome</h1>
-        <p>Market Segmentaion Tool Webapp</p>
+        <p>Market Segmentation Tool Webapp</p>
         <div class="button-row">
             <a class="button project-button" href="/index">View Project</a>
             <a class="button project-button" href="https://github.com/ANUJDWIVDI/market-segmentation-webapp">View on GitHub</a>
@@ -254,35 +296,33 @@
         </span>
     </div>
     <script>
-        // Get references to the form and buttons
-        const form = document.querySelector('form');
-        const projectButton = document.querySelector('#project-button');
-        const aboutButton = document.querySelector('#about-button');
+        // Get references to the video and loading animation
+        const video = document.querySelector('.video');
+        const loadingAnimation = document.querySelector('#loading-animation');
+        const container = document.querySelector('.container');
 
-        // Add click event listener to the project button
-        projectButton.addEventListener('click', () => {
-            // Do something when the button is clicked
-            console.log('Project button clicked');
+        // Function to hide the loading animation and remove it from the DOM
+        function hideLoadingAnimation() {
+            // Hide the loading animation
+            loadingAnimation.classList.add('hidden');
+            // Remove the loading animation element from the DOM
+            loadingAnimation.parentNode.removeChild(loadingAnimation);
+            // Enable container and its children
+            container.style.pointerEvents = 'auto';
+        }
 
-            // Submit the form
-            form.submit();
+        // Add event listener to detect when the video metadata is loaded
+        video.addEventListener('loadedmetadata', () => {
+            // Show the loading animation
+            loadingAnimation.classList.remove('hidden');
+            // Disable container and its children
+            container.style.pointerEvents = 'none';
         });
 
-        // Add click event listener to the about button
-        aboutButton.addEventListener('click', () => {
-            // Do something when the button is clicked
-            console.log('About button clicked');
-
-            // Trigger some other action
-            // ...
-        });
-
-                window.addEventListener("blur", () => {
-          document.title = "Come Back ;(";
-        });
-
-        window.addEventListener("focus", () => {
-          document.title = docTitle;
+        // Add event listener to detect when the video has started playing
+        video.addEventListener('playing', () => {
+            // Hide the loading animation and remove it from the DOM
+            hideLoadingAnimation();
         });
 
     </script>
