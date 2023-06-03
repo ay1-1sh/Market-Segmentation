@@ -60,7 +60,7 @@ h2 {
 
 /* Style the container boxes */
 .container {
-	background-color: rgba(169, 169, 169, 0.2); /* Orange with transparency */
+	background-color: rgba(169, 169, 169, 0.5); /* Orange with transparency */
 	border-radius: 10px;
 	padding: 20px;
 	margin-bottom: 30px;
@@ -131,27 +131,7 @@ body {
 	color: black; /* Dark brown */
 	font-weight: bold;
 }
-        .loading-animation {
-            /* Your loading animation styles here */
-            /* ... */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.8); /* Adjust the last value (0.8) for the desired transparency (0 to 1) */
-            color: #ffffff; /* Full white */
-            font-weight: bold;
-            font-size: 24px;
-        }
 
-        .hidden {
-            display: none;
-        }
 
 	</style>
 </head>
@@ -251,44 +231,10 @@ body {
 			</table>
 		</div>
 	</div>
-    <div class="loading-animation hidden" id="loading-animation">
-        Loading...
-    </div>
 
     <!-- Add Bootstrap JS file for carousel functionality -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-    <script>
-    // Get references to the video and loading animation
-    const video = document.querySelector('.video-background video');
-    const loadingAnimation = document.querySelector('#loading-animation');
-    const container = document.querySelector('.container');
 
-    // Function to remove the loading animation from the DOM
-    function removeLoadingAnimation() {
-        // Remove the loading animation element from the DOM
-        loadingAnimation.parentNode.removeChild(loadingAnimation);
-        // Enable container and its children
-        container.style.pointerEvents = 'auto';
-    }
-
-    // Add event listeners to detect when the video is loaded and playing
-    video.addEventListener('loadeddata', () => {
-        // Show the loading animation
-        loadingAnimation.classList.remove('hidden');
-        // Disable container and its children
-        container.style.pointerEvents = 'none';
-    });
-
-    video.addEventListener('playing', () => {
-        // Remove the loading animation from the DOM
-        removeLoadingAnimation();
-    });
-
-    // Check if the video is already loaded (in case it loads before the script runs)
-    if (video.readyState >= 4) {
-        removeLoadingAnimation();
-    }
-    </script>
 </body>
 </html>
