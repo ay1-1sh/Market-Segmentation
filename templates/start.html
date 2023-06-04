@@ -315,36 +315,7 @@
             <a href="https://linktr.ee/anuj_dwivedi" style="color: white; font-family: Arial, sans-serif;">@anuj_dwivedi</a>
         </span>
     </div>
-    <script>
-        // Get references to the video and loading animation
-        const video = document.querySelector('.video');
-        const loadingAnimation = document.querySelector('#loading-animation');
-        const container = document.querySelector('.container');
 
-        // Function to hide the loading animation and remove it from the DOM
-        function hideLoadingAnimation() {
-            // Hide the loading animation
-            loadingAnimation.classList.add('hidden');
-            // Remove the loading animation element from the DOM
-            loadingAnimation.parentNode.removeChild(loadingAnimation);
-            // Enable container and its children
-            container.style.pointerEvents = 'auto';
-        }
 
-        // Add event listener to detect when the video metadata is loaded
-        video.addEventListener('loadedmetadata', () => {
-            // Show the loading animation
-            loadingAnimation.classList.remove('hidden');
-            // Disable container and its children
-            container.style.pointerEvents = 'none';
-        });
-
-        // Add event listener to detect when the video has started playing
-        video.addEventListener('playing', () => {
-            // Hide the loading animation and remove it from the DOM
-            hideLoadingAnimation();
-        });
-
-    </script>
 </body>
 </html>
