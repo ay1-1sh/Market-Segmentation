@@ -26,6 +26,17 @@ def start():
 def star1():
     return render_template('start.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+@app.route('/under_construct')
+def und():
+    return render_template('under_constr.html')
+
+@app.route('/team')
+def team():
+    return render_template('team.html')
+
 @app.route('/index')
 def index():
     # Remove all files from the static/plots folder
