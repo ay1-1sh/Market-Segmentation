@@ -3,6 +3,9 @@
 A web application built using Flask for market segmentation using unsupervised machine learning algorithms. The application allows users to upload a dataset, select relevant features, and apply clustering algorithms to group similar customers based on their purchasing behavior.
 By: [@anuj_dwivedi](https://linktr.ee/anuj_dwivedi)
 
+## Server Face : 🌐
+Link : [server_face](https://market-segm-server-face.vercel.app/)
+
 ## Demo Video : 📸
 Link : [video_demo.mp4](https://www.linkedin.com/posts/anuj-dwivedi-1352831b1_softwaredevelopment-webapplication-specialtopicproject-activity-7076193078608359424-2avz?utm_source=share&utm_medium=member_desktop)
 
