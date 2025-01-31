@@ -1,7 +1,7 @@
 # 📊 Market Segmentation Flask Web Architecture
 
 A web application built using Flask for market segmentation using unsupervised machine learning algorithms. The application allows users to upload a dataset, select relevant features, and apply clustering algorithms to group similar customers based on their purchasing behavior.
-By: [@anuj_dwivedi](https://linktr.ee/anuj_dwivedi)
+
 
 ## Server Face : 🌐
 Link : [server_face](https://market-segm-server-face.vercel.app/)
@@ -51,11 +51,11 @@ The user interface is designed using Bootstrap and custom CSS. The application u
 
 ### 🤝 Contributors
 
-- Anuj Dwivedi (@ANUJDWIVDI)
+- Ayush Agrawal
 
 ## Links 🔗
 
-[LinkTree](https://linktr.ee/anuj_dwivedi)
-[LinkedIn](https://www.linkedin.com/in/anuj-dwivedi-1352831b1/)
-[Instagram](https://www.instagram.com/anuj_dwvd_0/)
+[LinkTree]()
+[LinkedIn]()
+[Instagram]()
 
